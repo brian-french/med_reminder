@@ -26,7 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		
 		Log.d(TAG, "launching alarm");
 		//start the alarm activity
-		Intent alarm = new Intent(context, Alarm.class);
+		Intent alarm = new Intent(context, MedReminderDialog.class);
     	alarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
 
     	alarm.putExtras(intent.getExtras());
