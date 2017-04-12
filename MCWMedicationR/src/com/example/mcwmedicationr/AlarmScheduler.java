@@ -5,8 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import edu.cmu.ices.EMA.Constants;
-import edu.cmu.ices.EMA.service.logging.Log;
+import android.util.Log;
 
 public class AlarmScheduler {
 	
@@ -19,7 +18,7 @@ public class AlarmScheduler {
 	}
 
 	public void cancelAlarm(String action, int requestCode) {
-		Log.w("ALARM SCHEDULER", "Cancelling alarm: " + action + ", " + requestCode);
+		Log.d("ALARM SCHEDULER", "Cancelling alarm: " + action + ", " + requestCode);
 		Intent i = new Intent();
 		i.setAction(action);
 		PendingIntent pi = PendingIntent.getBroadcast(context, requestCode, i, 0);
@@ -28,7 +27,7 @@ public class AlarmScheduler {
 	
 	public void rescheduleIntent(Intent i, int requestCode, long alarmTime) {
 
-		Log.w("ALARM SCHEDULER", "Rescheduling intent: action=" + i.getAction() + ", RQcode=" + requestCode + ", time=" + alarmTime);
+		Log.d("ALARM SCHEDULER", "Rescheduling intent: action=" + i.getAction() + ", RQcode=" + requestCode + ", time=" + alarmTime);
 		PendingIntent pi = PendingIntent.getBroadcast(context, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
 		am.set(AlarmManager.RTC_WAKEUP, alarmTime, pi);
 	}
@@ -36,7 +35,7 @@ public class AlarmScheduler {
 	public void scheduleOneShotAlarm(String action, String classname, String alarmMsg, int requestCode, long alarmTime, boolean snoozeable, boolean incentive) {
 
 		Intent i = new Intent();
-		Log.w("ALARM SCHEDULER", "scheduleing one shot: action=" + action + ", class=" + classname + ", alarmMsg=" + alarmMsg + ", RQcode=" + requestCode +", time=" + alarmTime +", snooze=" + snoozeable + ", incentive=" + incentive);
+		Log.d("ALARM SCHEDULER", "scheduleing one shot: action=" + action + ", class=" + classname + ", alarmMsg=" + alarmMsg + ", RQcode=" + requestCode +", time=" + alarmTime +", snooze=" + snoozeable + ", incentive=" + incentive);
 		i.setAction(action);
 		i.putExtra(Constants.ALARM_ACTION, action);
 		i.putExtra(Constants.ALARM_CLASS, classname);
@@ -52,7 +51,7 @@ public class AlarmScheduler {
 	}
 	
 	public void scheduleRepeatingAlarm(String action, String classname, String alarmMsg, int requestCode, long alarmTime, long interval, boolean snoozeable) {
-		Log.w("ALARM SCHEDULER", "scheduleing repeating alarm: action=" + action + ", class=" + classname + ", alarmMsg=" + alarmMsg + ", RQcode=" + requestCode +", time=" + alarmTime +", snooze=" + snoozeable);
+		Log.d("ALARM SCHEDULER", "scheduleing repeating alarm: action=" + action + ", class=" + classname + ", alarmMsg=" + alarmMsg + ", RQcode=" + requestCode +", time=" + alarmTime +", snooze=" + snoozeable);
 		Intent i = new Intent();
 		i.setAction(action);
 		i.putExtra(Constants.ALARM_ACTION, action);

@@ -55,6 +55,11 @@ public class Constants {
 	public static final String PREFS_EMA_VERSION = "edu.cmu.ices.EMA.prefs.EMA_VERSION";
 	public static final String PREFS_ASSESS_PROB = "edu.cmu.ices.EMA.prefs.ASSESS_PROB";
 	
+	public static final String PREFS_HOUR_ONE = "edu.cmu.ices.EMA.prefs.HOUR_ONE";
+	public static final String PREFS_MINUTE_ONE = "edu.cmu.ices.EMA.prefs.MINUTE_ONE";
+	public static final String PREFS_HOUR_TWO = "edu.cmu.ices.EMA.prefs.HOUR_TWO";
+	public static final String PREFS_MINUTE_TWO = "edu.cmu.ices.EMA.prefs.MINUTE_TWO";
+	
 	public static final String ALPHA_1 = "ALPHA_1";
 	public static final String ALPHA_2 = "ALPHA_2";
 	public static final String ALPHA_3 = "ALPHA_3";

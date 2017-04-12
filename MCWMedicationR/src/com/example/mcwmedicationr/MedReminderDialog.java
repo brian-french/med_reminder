@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.Vibrator;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -49,6 +50,7 @@ public class MedReminderDialog extends Activity {
 	int snoozeCount = -1;
 	
 	Button record, snooze, week1;
+	private long time;
 	
     @Override
     protected void onCreate(Bundle icicle) {
@@ -59,7 +61,7 @@ public class MedReminderDialog extends Activity {
         snooze = (Button) findViewById(R.id.reminderSnoozeButton);
         week1 = (Button) findViewById(R.id.reminderWeek1Button);
 
-        long time = System.currentTimeMillis();
+        time = System.currentTimeMillis();
         
         prefs = new AppPreferences(getApplicationContext());
 
@@ -88,8 +90,7 @@ public class MedReminderDialog extends Activity {
 		
 		sched = new AlarmScheduler(getApplicationContext());
 		
-		snoozeIntent = new Intent();//getApplicationContext(), Alarm.class);
-		snoozeIntent.setAction(intent.getStringExtra(Constants.ALARM_ACTION));
+		snoozeIntent = new Intent(this, MedReminderDialog.class);//getApplicationContext(), Alarm.class);
 		snoozeIntent.putExtras(intent.getExtras());
 		
 		audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -100,7 +101,14 @@ public class MedReminderDialog extends Activity {
 			public void onClick(View v) {
 				// launch the interview the alarm has been dismissed
         	   logMedication();
+        	   scheduleNextReminder(time);
                stop();
+			}
+
+			private void scheduleNextReminder(long time) {
+				Time now = new Time();
+				now.set(time);
+				
 			}
 			
 		});
@@ -110,7 +118,7 @@ public class MedReminderDialog extends Activity {
 			@Override
 			public void onClick(View v) {
 
-    		   long alarmTime = System.currentTimeMillis() + (10L * Constants.MINUTE_MILLIS);
+    		   long alarmTime = time + (10L * Constants.MINUTE_MILLIS);
     		   sched.rescheduleIntent(snoozeIntent, requestCode, alarmTime);
     		   stop();
 			}
@@ -121,6 +129,7 @@ public class MedReminderDialog extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				stop();
 				finish();
 			}
 			
