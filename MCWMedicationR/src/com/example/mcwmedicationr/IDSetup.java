@@ -3,6 +3,7 @@ package com.example.mcwmedicationr;
 
 import java.io.File;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -10,6 +11,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -19,17 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import edu.cmu.ices.EMA.Constants;
-import edu.cmu.ices.EMA.EMAActivity;
-import edu.cmu.ices.EMA.R;
-import edu.cmu.ices.EMA.interview.hourly.EventRecord;
-import edu.cmu.ices.EMA.service.AlarmScheduler;
-import edu.cmu.ices.EMA.service.AppPreferences;
-import edu.cmu.ices.EMA.service.SmartScheduler;
-import edu.cmu.ices.EMA.service.logging.EventLogger;
-import edu.cmu.ices.EMA.service.logging.Log;
 
-public class IDSetup extends EMAActivity {
+public class IDSetup extends Activity {
 	
 	TextView text;//, reenterText;
 	EditText edit;//, reenter;
@@ -210,8 +203,8 @@ public class IDSetup extends EMAActivity {
 					
 					// schedule the daily reminder to do a collection this week?
 					// reinitialize the smartScheduler so the config is reloaded
-					smartScheduler = new SmartScheduler(getApplicationContext());
-					smartScheduler.scheduleEODReminder(false);
+//					smartScheduler = new SmartScheduler(getApplicationContext());
+//					smartScheduler.scheduleEODReminder(false);
 					
 					// start the alarm type and volume setting activity
 					Intent intent = new Intent(getBaseContext(), ChangeAlarmActivity.class);
@@ -343,8 +336,6 @@ public class IDSetup extends EMAActivity {
 		intent.putExtra("id", id);
 		intent.putExtra("timestamp", System.currentTimeMillis());
 		sendBroadcast(intent);
-		EventLogger eLog = new EventLogger();
-		eLog.logEvent("Home Screen Broadcast", appArray[0], System.currentTimeMillis(), System.currentTimeMillis());
 		
 		// save the alarm volume and ringtone settings in the appPref object from lora's service
 		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);

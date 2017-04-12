@@ -16,6 +16,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,9 +28,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import edu.cmu.ices.EMA.Constants;
-import edu.cmu.ices.EMA.R;
-import edu.cmu.ices.EMA.service.logging.Log;
 
 public class ChangeAlarmActivity extends Activity {
 

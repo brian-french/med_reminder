@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/IDSetupLayout"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+				
+		<TextView android:id="@+id/IDSetupText" 
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content"
+              android:text="Touch the text field below to enter a participant ID number:"
+              android:textSize="20sp"
+              android:layout_alignParentTop="true">
+        </TextView>
+				 
+		<EditText android:id="@+id/IDSetupEdit"
+			android:text="" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:layout_below="@+id/IDSetupText">
+		</EditText>
+		
+		<ListView android:id="@+id/IDSetupList"
+		    	android:visibility="invisible"
+				android:choiceMode="singleChoice"
+				android:clickable="true"
+				android:focusableInTouchMode="true"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/IDSetupText"
+				android:layout_above="@+id/IDSetupCancelButton"
+				android:paddingTop="30dp">
+		</ListView>
+		
+<!-- 		<TextView android:id="@+id/IDSetupTextReenter"  -->
+<!--               android:layout_width="fill_parent"  -->
+<!--               android:layout_height="wrap_content" -->
+<!--               android:text="Re-enter the schedule below to validate:" -->
+<!--               android:textSize="20sp" -->
+<!--               android:layout_below="@+id/IDSetupEdit" -->
+<!--               android:visibility="invisible"> -->
+<!--         </TextView> -->
+				 
+<!-- 		<EditText android:id="@+id/IDSetupReenter" -->
+<!-- 			android:text=""  -->
+<!-- 			android:layout_width="fill_parent"  -->
+<!-- 			android:layout_height="wrap_content"  -->
+<!-- 			android:layout_below="@+id/IDSetupTextReenter" -->
+<!-- 			android:visibility="invisible" -->
+<!-- 			android:enabled="false"> -->
+<!-- 		</EditText> -->
+
+		<Button
+		    android:id="@+id/IDSetupCancelButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_centerVertical="true"
+		    android:minHeight="75px"
+		    android:minWidth="125px"
+		    android:text="Cancel"
+		    android:textSize="20sp" />
+
+		<Button
+		    android:id="@+id/IDSetupSaveButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBaseline="@+id/IDSetupCancelButton"
+		    android:layout_alignBottom="@+id/IDSetupCancelButton"
+		    android:layout_alignParentRight="true"
+		    android:minHeight="75px"
+		    android:minWidth="125px"
+		    android:text="Save"
+		    android:textSize="20sp" />
+
+		<Button
+		    android:id="@+id/IDSetupClearButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentLeft="true"
+		    android:text="Erase Configuration"
+		    android:textSize="20sp" />
+
+		<TimePicker
+		    android:id="@+id/IDSetupTimePicker"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignTop="@+id/IDSetupEdit"
+		    android:layout_centerHorizontal="true" />
+
+</RelativeLayout>		    
+
