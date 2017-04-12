@@ -30,7 +30,6 @@ public class MedReminderDialog extends Activity {
 	private MediaPlayer mMediaPlayer;
 	private boolean mPlaying = false;
 	private Vibrator vibe;
-	private AlertDialog dialog;
 	private WakeLock wl;
 	
 	String message;
@@ -266,7 +265,6 @@ public class MedReminderDialog extends Activity {
 			e.printStackTrace();
 		}
 		mPlaying = true;
-		dialog.show();
     }
 	
 	/**
@@ -291,7 +289,6 @@ public class MedReminderDialog extends Activity {
         
 //        if (wl.isHeld())
 //        	wl.release();
-        dialog.dismiss();
         finish();
     }
 	
