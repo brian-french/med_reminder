@@ -21,7 +21,7 @@ import android.util.Log;
 public class Logger {
 	
 	private Context context;
-	protected static final String DATE_FORMAT = "%Y/%m/%d,%I:%M:%S %p";
+	protected static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 	
 	//private static final String LOG_DIR = "EMA_LOGS";
 	public Logger(Context context) {
