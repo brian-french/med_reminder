@@ -4,7 +4,10 @@ import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -12,9 +15,12 @@ import android.widget.TextView;
 
 public class ViewLog extends Activity {
 
+	private static final int MENU_RINGTONE = 1;
+	private static final int MENU_TIME = 2;
 	Button exit;
 	TextView log;
 	Logger logger;
+	AppPreferences prefs;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,8 @@ public class ViewLog extends Activity {
 		setContentView(R.layout.view_log);
 		exit = (Button) findViewById(R.id.viewLogButton);
 		log = (TextView) findViewById(R.id.viewLogText);
+		
+		prefs = new AppPreferences(this);
 		
 		exit.setOnClickListener(new OnClickListener() {
 
@@ -47,5 +55,38 @@ public class ViewLog extends Activity {
 		log.setText(sb.toString());
 		
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		boolean enabled = prefs.getIsEnabled();
+		
+		if (enabled) {
+			MenuItem ring = menu.add(0, MENU_RINGTONE, 0, "Change ringtone settings");
+			MenuItem time = menu.add(0, MENU_TIME, 0, "Change alarm times");
+		}
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		switch (item.getItemId())
+			{
+		case MENU_RINGTONE:
+			intent = new Intent(this, ChangeAlarmActivity.class);
+			startActivity(intent);
+			finish();
+			return true;
+		case MENU_TIME:
+			intent = new Intent(this, ChangeTimeActivity.class);
+			startActivity(intent);
+			finish();
+			return true;
+			}
+		return super.onOptionsItemSelected(item);
+	}
+
 
 }

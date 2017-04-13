@@ -29,6 +29,7 @@ public class AlarmScheduler {
 
 		Log.d("ALARM SCHEDULER", "Rescheduling intent: action=" + i.getAction() + ", RQcode=" + requestCode + ", time=" + alarmTime);
 		PendingIntent pi = PendingIntent.getBroadcast(context, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
+		am.cancel(pi);
 		am.set(AlarmManager.RTC_WAKEUP, alarmTime, pi);
 	}
 	

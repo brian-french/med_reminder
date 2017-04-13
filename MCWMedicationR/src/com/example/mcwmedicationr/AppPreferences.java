@@ -35,23 +35,12 @@ public class AppPreferences {
 		return prefs.getLong(Constants.PREFS_START_TIME, 0);
 	}
 	
-	public void setHourOne(int hour) {
-		editor.putInt(Constants.PREFS_HOUR_ONE, hour);
-		editor.commit();
+	public int getTimeValue(String key, int value) {
+		return prefs.getInt(key, value);
 	}
 	
-	public void setMinuteOne(int minute) {
-		editor.putInt(Constants.PREFS_MINUTE_ONE, minute);
-		editor.commit();
-	}
-	
-	public void setHourTwo(int hour) {
-		editor.putInt(Constants.PREFS_HOUR_TWO, hour);
-		editor.commit();
-	}
-	
-	public void setMinuteTwo(int minute) {
-		editor.putInt(Constants.PREFS_MINUTE_TWO, minute);
+	public void setTimeValue(String key, int value) {
+		editor.putInt(key, value);
 		editor.commit();
 	}
 	
@@ -119,6 +108,16 @@ public class AppPreferences {
 	
 	public void setRingtonSetting(int ringtone) {
 		editor.putInt(Constants.PREFS_RINGTONE_SETTING, ringtone);
+		editor.commit();
+	}
+
+	public boolean getIsEnabled() {
+		// TODO Auto-generated method stub
+		return prefs.getBoolean(Constants.PREFS_IS_ENABLED, false);
+	}
+	
+	public void setIsEnabled(boolean value) {
+		editor.putBoolean(Constants.PREFS_IS_ENABLED, value);
 		editor.commit();
 	}
 }

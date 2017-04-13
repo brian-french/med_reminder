@@ -59,6 +59,7 @@ public class Constants {
 	public static final String PREFS_MINUTE_ONE = "edu.cmu.ices.EMA.prefs.MINUTE_ONE";
 	public static final String PREFS_HOUR_TWO = "edu.cmu.ices.EMA.prefs.HOUR_TWO";
 	public static final String PREFS_MINUTE_TWO = "edu.cmu.ices.EMA.prefs.MINUTE_TWO";
+	public static final String PREFS_IS_ENABLED = "edu.cmu.ices.EMA.prefs.ISENABLED";
 	
 	public static final String ALPHA_1 = "ALPHA_1";
 	public static final String ALPHA_2 = "ALPHA_2";

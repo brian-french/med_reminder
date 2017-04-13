@@ -107,9 +107,10 @@ public class MedReminderDialog extends Activity {
 			}
 
 			private void scheduleNextReminder(long time) {
-				Time now = new Time();
-				now.set(time);
 				
+				long nextAlarm = prefs.getNextAlarmTime(time);
+				Intent i = new Intent(getApplicationContext(), MedReminderDialog.class);
+				sched.rescheduleIntent(i, requestCode, nextAlarm);
 			}
 			
 		});
