@@ -77,6 +77,12 @@ public class ChangeTimeActivity extends Activity {
 				Intent i = new Intent(getApplicationContext(), MedReminderDialog.class);
 				sched.rescheduleIntent(i, Constants.ALARM_ALERT_RQ_CODE, nextAlarm);
 				
+				if (getIntent().getBooleanExtra("init", false)) {
+					// runnning the initial configuration, launch the ringtone setup next
+					Intent ring = new Intent(getApplicationContext(), ChangeAlarmActivity.class);
+					startActivity(ring);
+				}
+				
 				finish();
 				
 			}

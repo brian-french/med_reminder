@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical">
+				
+		<TextView android:id="@+id/medReminderConfigText" 
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content"
+              android:text="Flip the switch below to enable/disable medication reminders. Then press the Next button to continue the configuration."
+              android:textSize="20sp"
+              android:layout_marginTop="10dp"
+              android:layout_marginBottom="20dp">
+        </TextView>
+
+		<Switch
+		    android:id="@+id/switch1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center" />
+
+		<Button
+		    android:id="@+id/button1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text=" Next "
+		    android:layout_marginTop="50dp"
+		    android:layout_gravity="center" />
+
+</LinearLayout>		    
+
