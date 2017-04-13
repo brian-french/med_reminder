@@ -152,14 +152,6 @@ public class MedReminderDialog extends Activity {
 		alarmToggle.putExtra("toggle_count", 1);
 		sched.rescheduleIntent(alarmToggle, Constants.ALARM_TOGGLE_RQ_CODE, time + (Constants.MINUTE_MILLIS / 2));
 		
-		if (AlarmReceiver.br_wl != null) {
-			if (AlarmReceiver.br_wl.isHeld()) {
-				System.out.println("Releasing alarm receiver wakelock");
-				AlarmReceiver.br_wl.release();
-				AlarmReceiver.br_wl = null;
-			}
-		}
-		
     }
     
     @Override
