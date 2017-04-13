@@ -143,8 +143,6 @@ public class MedReminderDialog extends Activity {
 		
 		//TODO may want to reintroduce the keypad lock disable here...
 		
-		initAlarm();
-		
 		// alarm toggling set up
 		registerReceiver(alarmToggleReceiver, new IntentFilter(Constants.ALARM_TOGGLE_ACTION));
 		Intent alarmToggle = new Intent();
@@ -152,6 +150,13 @@ public class MedReminderDialog extends Activity {
 		alarmToggle.putExtra("toggle_count", 1);
 		sched.rescheduleIntent(alarmToggle, Constants.ALARM_TOGGLE_RQ_CODE, time + (Constants.MINUTE_MILLIS / 2));
 		
+        if (!prefs.getIsEnabled()) {
+        	// this has been disabled, just eat this alarm and close
+        	finish();
+        	return;
+        }
+        
+		initAlarm();
     }
     
     @Override
