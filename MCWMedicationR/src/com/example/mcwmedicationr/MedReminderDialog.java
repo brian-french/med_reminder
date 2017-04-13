@@ -26,6 +26,8 @@ import android.widget.Button;
 
 public class MedReminderDialog extends Activity {
 
+	public static final String MEDREMINDLOG = "MedRemind_log.csv";
+	
 	private RingtoneManager rm;
 	private MediaPlayer mMediaPlayer;
 	private boolean mPlaying = false;
@@ -204,7 +206,7 @@ public class MedReminderDialog extends Activity {
  	
  	private void logMedication() {
  		Logger logger = new Logger(this);
- 		logger.LogEntry("MedRemind_log.csv", System.currentTimeMillis());
+ 		logger.LogEntry(MEDREMINDLOG, System.currentTimeMillis());
  	}
     
     private void initAlarm() {

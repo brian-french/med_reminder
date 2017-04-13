@@ -64,7 +64,7 @@ public class Logger {
 		}
 	}
 	
-	private List<String> loadReminderLog(String logFileName) {
+	public List<String> loadReminderLog(String logFileName) {
 		File log = getLogFilePath(logFileName);
 		List<String> lines = new ArrayList<String>();
 		
