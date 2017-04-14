@@ -62,7 +62,8 @@
         </activity>
         <activity
             android:name=".ViewLog"
-            android:label="MedRemind Log" >
+            android:label="MedRemind Log"
+            android:icon="@drawable/viewlog" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
