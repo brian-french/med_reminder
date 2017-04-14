@@ -16,7 +16,7 @@
         android:id="@+id/reminderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is a reminder to take\nyour study medication."
+        android:text="This is a reminder to take\nyour study medication. Please do not check the affirmative button until you have actually swallowed your pill."
         android:layout_gravity="center"
         android:textSize="18dp" />
     <LinearLayout
