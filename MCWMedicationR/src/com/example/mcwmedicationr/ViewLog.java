@@ -17,7 +17,7 @@ public class ViewLog extends Activity {
 
 	private static final int MENU_RINGTONE = 1;
 	private static final int MENU_TIME = 2;
-	Button exit;
+	Button exit, settings;
 	TextView log;
 	Logger logger;
 	AppPreferences prefs;
@@ -30,6 +30,7 @@ public class ViewLog extends Activity {
 		setContentView(R.layout.view_log);
 		exit = (Button) findViewById(R.id.viewLogButton);
 		log = (TextView) findViewById(R.id.viewLogText);
+		settings = (Button) findViewById(R.id.viewLogSettingsButton);
 		
 		prefs = new AppPreferences(this);
 		
@@ -38,6 +39,15 @@ public class ViewLog extends Activity {
 			@Override
 			public void onClick(View v) {
 				finish();
+			}
+			
+		});
+		
+		settings.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				openOptionsMenu();
 			}
 			
 		});

@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="Morning Time:"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -29,7 +29,7 @@
         android:text="Evening Time:"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginTop="15dp"  />
+        android:layout_marginTop="10dp"  />
 	
 	<TimePicker
         android:id="@+id/timePicker2"
@@ -41,7 +41,7 @@
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp" >
+        android:layout_marginTop="10dp" >
 
         <Button
             android:id="@+id/timeSave"

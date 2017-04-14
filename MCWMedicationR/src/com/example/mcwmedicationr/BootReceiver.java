@@ -18,7 +18,7 @@ public class BootReceiver extends BroadcastReceiver {
 		// the phone has been rebooted
 
 		prefs = new AppPreferences(context);
-		Intent i = new Intent(context, MedReminderDialog.class);
+		Intent i = new Intent(context, AlarmReceiver.class);
 		
 		long nextAlarm = prefs.getNextAlarmTime(System.currentTimeMillis());
 		sched.rescheduleIntent(i, Constants.ALARM_ALERT_RQ_CODE, nextAlarm);

@@ -21,7 +21,7 @@ import android.util.Log;
 public class Logger {
 	
 	private Context context;
-	protected static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+	protected static final String DATE_FORMAT = "yyyy-MM-dd hh:mm:ss a";
 	
 	//private static final String LOG_DIR = "EMA_LOGS";
 	public Logger(Context context) {
@@ -72,10 +72,10 @@ public class Logger {
 			try {
 			    BufferedReader br = new BufferedReader(new FileReader(log));
 	
-			    String line = br.readLine().trim();
+			    String line = br.readLine();
 			    while( line != null) {
-			    	lines.add(line);
-			    	line = br.readLine().trim();
+			    	lines.add(line.trim());
+			    	line = br.readLine();
 			    }
 			    
 			    br.close();

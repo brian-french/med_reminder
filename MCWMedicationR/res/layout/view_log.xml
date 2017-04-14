@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar1"
-        android:layout_above="@+id/viewLogButton" >
+        android:layout_above="@+id/viewLogButtonLayout" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,20 +38,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/viewLogButton"
+    <LinearLayout
+        android:id="@+id/viewLogButtonLayout" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Exit "
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_centerInParent="true" />
+        android:orientation="horizontal"
+       	android:layout_centerInParent="true"
+       	android:layout_alignParentBottom="true">
+	    <Button
+	        android:id="@+id/viewLogSettingsButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Settings"
+	        android:textSize="20dp"
+	        android:gravity="center"
+	        android:layout_marginRight="25dp" />
+	    <Button
+	        android:id="@+id/viewLogButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text=" Exit "
+	        android:textSize="20dp"
+	        android:gravity="center" />
+    </LinearLayout>
 
 </RelativeLayout>

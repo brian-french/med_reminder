@@ -9,29 +9,37 @@
         android:layout_height="wrap_content"
         android:text="Medication Reminder"
         android:layout_gravity="center"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
     <TextView
         android:id="@+id/reminderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is a reminder to take your study medication."
-        android:layout_gravity="center" />
+        android:text="This is a reminder to take\nyour study medication."
+        android:layout_gravity="center"
+        android:textSize="18dp" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp">
         <Button
             android:id="@+id/reminderRecordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I have just\ntaken my\nmedication">
+            android:text="I have just\ntaken my\nmedication"
+            android:textSize="16dp"
+            android:layout_marginRight="25dp">
         </Button>
         <Button
             android:id="@+id/reminderSnoozeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Snooze 10 minutes)">
+            android:text="Snooze\n10\nminutes"
+            android:textSize="16dp">
         </Button>
     </LinearLayout>
     <Button
@@ -39,7 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WEEK 1 - NO\nMEDICATION TAKEN"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:textSize="16dp">
     </Button>
 
 </LinearLayout>

@@ -38,8 +38,7 @@
         </activity>
         <activity
             android:name=".MedReminderConfig"
-            android:label="MedReminder Config"
-            android:theme="@android:style/Theme.Dialog" >
+            android:label="MedRemind Config" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -63,12 +62,16 @@
         </activity>
         <activity
             android:name=".ViewLog"
-            android:label="MedReminder Log" >
+            android:label="MedRemind Log" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".BootReceiver" />
+        
     </application>
 
 </manifest>

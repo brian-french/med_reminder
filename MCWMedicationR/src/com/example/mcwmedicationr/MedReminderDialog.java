@@ -3,7 +3,6 @@ package com.example.mcwmedicationr;
 import java.io.IOException;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.Vibrator;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -57,6 +55,9 @@ public class MedReminderDialog extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         
+        // prevent a touch event outside the dialog window from canceling the prompt
+        setFinishOnTouchOutside(false);
+        
         setContentView(R.layout.activity_med_reminder_dialog);
         record = (Button) findViewById(R.id.reminderRecordButton);
         snooze = (Button) findViewById(R.id.reminderSnoozeButton);
@@ -91,7 +92,7 @@ public class MedReminderDialog extends Activity {
 		
 		sched = new AlarmScheduler(getApplicationContext());
 		
-		snoozeIntent = new Intent(this, MedReminderDialog.class);//getApplicationContext(), Alarm.class);
+		snoozeIntent = new Intent(this, AlarmReceiver.class);//getApplicationContext(), Alarm.class);
 		snoozeIntent.putExtras(intent.getExtras());
 		
 		audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -104,13 +105,6 @@ public class MedReminderDialog extends Activity {
         	   logMedication();
         	   scheduleNextReminder(time);
                stop();
-			}
-
-			private void scheduleNextReminder(long time) {
-				
-				long nextAlarm = prefs.getNextAlarmTime(time);
-				Intent i = new Intent(getApplicationContext(), MedReminderDialog.class);
-				sched.rescheduleIntent(i, requestCode, nextAlarm);
 			}
 			
 		});
@@ -131,6 +125,7 @@ public class MedReminderDialog extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				scheduleNextReminder(time);
 				stop();
 				finish();
 			}
@@ -140,6 +135,15 @@ public class MedReminderDialog extends Activity {
 		PowerManager pm = (PowerManager)getBaseContext().getSystemService(POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "com.ices.cmu.EMA.service.Alarm");
 		wl.acquire();
+		
+		// release the wake lock in the alarm receiver
+		if (AlarmReceiver.br_wl != null) {
+			if (AlarmReceiver.br_wl.isHeld()) {
+				System.out.println("Releasing alarm receiver wakelock");
+				AlarmReceiver.br_wl.release();
+				AlarmReceiver.br_wl = null;
+			}
+		}
 		
 		//TODO may want to reintroduce the keypad lock disable here...
 		
@@ -158,6 +162,13 @@ public class MedReminderDialog extends Activity {
         
 		initAlarm();
     }
+    
+	private void scheduleNextReminder(long time) {
+		
+		long nextAlarm = prefs.getNextAlarmTime(time);
+		Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
+		sched.rescheduleIntent(i, requestCode, nextAlarm);
+	}
     
     @Override
     public void onDestroy() {
@@ -356,4 +367,6 @@ public class MedReminderDialog extends Activity {
 			sched.rescheduleIntent(intent, Constants.ALARM_TOGGLE_RQ_CODE, now + delay);
 		}
     };
+    
+    
 }

@@ -41,8 +41,8 @@ public class ChangeTimeActivity extends Activity {
 		
 		time1 = (TimePicker) findViewById(R.id.timePicker1);
 		time2 = (TimePicker) findViewById(R.id.timePicker2);
-		save = (Button) findViewById(R.id.alarmSave);
-		cancel = (Button) findViewById(R.id.alarmCancel);
+		save = (Button) findViewById(R.id.timeSave);
+		cancel = (Button) findViewById(R.id.timeCancel);
 		
 		int hour1 = prefs.getTimeValue(Constants.PREFS_HOUR_ONE, 7);
 		int minute1 = prefs.getTimeValue(Constants.PREFS_MINUTE_ONE, 0);
@@ -74,7 +74,7 @@ public class ChangeTimeActivity extends Activity {
 				prefs.setTimeValue(Constants.PREFS_MINUTE_TWO, time2.getCurrentMinute());
 				
 				long nextAlarm = prefs.getNextAlarmTime(System.currentTimeMillis());
-				Intent i = new Intent(getApplicationContext(), MedReminderDialog.class);
+				Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
 				sched.rescheduleIntent(i, Constants.ALARM_ALERT_RQ_CODE, nextAlarm);
 				
 				if (getIntent().getBooleanExtra("init", false)) {
