@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/reminderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily Flare Prompt"
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+    <TextView
+        android:id="@+id/reminderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In the last 24 hours, did you have a flare of your urologic or pelvic pain symptoms?\n\n(Flare means symptoms that are much worse than usual)"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="18dp" 
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp">
+        <Button
+            android:id="@+id/flareYesButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:textSize="16dp"
+            android:layout_marginRight="25dp"
+            android:width="125dp">
+        </Button>
+        <Button
+            android:id="@+id/flareNoButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:textSize="16dp"
+            android:width="125dp">
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

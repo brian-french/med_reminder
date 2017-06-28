@@ -28,13 +28,23 @@ public class Logger {
 		this.context = context;
 	}
 	
-	public void LogEntry(String logFile, long time) {
+	public void LogEntry(String logFile, long time, String data) {
+		
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         Date netDate = (new Date(time));
         String logEntry = sdf.format(netDate);
+        if (data != null) {
+        	logEntry += "," + data;
+        }
+        logEntry = LogEncryption.encryptIt(logEntry);
 		
 		File log = getLogFilePath(logFile);
 		if (log != null) {
+			
+			if (!log.exists() && data != null) {
+				// write a header
+				writeHeader(log);
+			}
 
 			// open the file and write it
 			PrintWriter writer = null;
@@ -86,6 +96,29 @@ public class Logger {
 		}
 		
 		return lines;
+	}
+	
+	private void writeHeader(File log) {
+		String header = "TIME,FLARE_LENGTH,HOW_BAD,HOW_INTERFERE,PELVIC_PAIN,PAIN_ELSEWHERE,URGENCY_FREQ,FATIGUE,DISABILITY,OTHER,OTHER_SPECIFY";
+		header = LogEncryption.encryptIt(header);
+		PrintWriter writer = null;
+		//FileOutputStream writer = null;
+		try {
+			writer = new PrintWriter(new FileOutputStream(log,true));
+			//writer.write(logEntry.getBytes());
+			writer.println(header);
+			writer.flush();
+			writer.close();
+			writer = null;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			Log.e("LOGGING", e.getMessage());
+			// make this error visible to the user so they will call in!!!!
+			throw new RuntimeException("ERROR: failed to write interview data to log! Please call for assistance");
+		}
+		if (writer != null) {
+			writer.close();
+		}
 	}
 	
 	private File getLogFilePath(String logFileName) {

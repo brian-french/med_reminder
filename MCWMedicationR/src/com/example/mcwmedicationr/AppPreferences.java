@@ -44,6 +44,10 @@ public class AppPreferences {
 		editor.commit();
 	}
 	
+	public int getInt(String key, int defaultValue) {
+		return prefs.getInt(key, defaultValue);
+	}
+	
 	public long getNextAlarmTime(long current) {
 		int hour1 = prefs.getInt(Constants.PREFS_HOUR_ONE, -1);
 		int minute1 = prefs.getInt(Constants.PREFS_MINUTE_ONE, -1);

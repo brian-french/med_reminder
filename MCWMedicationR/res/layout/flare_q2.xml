@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/ButtonLayout"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+				
+		<TextView android:id="@+id/Question" 
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content"
+              android:text="How bad was the flare on a scale of 0 to 5 where 0 is not bad at all and 5 is the worst you could imagine?"
+              android:textSize="20sp"
+              android:layout_alignParentTop="true"
+              android:layout_marginLeft="10sp"
+              android:layout_marginRight="10sp"
+              android:layout_marginTop="5sp"
+              android:layout_marginBottom="10sp">
+        </TextView>
+				 
+
+        <TextView android:text="0" 
+            android:id="@+id/txvSeekBarValue" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Question"
+            android:textSize="20sp"
+            android:paddingTop="20dp">
+        </TextView>
+
+		<SeekBar
+			android:layout_height="wrap_content" 
+			android:layout_width="fill_parent" 
+			android:layout_below="@+id/txvSeekBarValue" 
+			android:layout_alignLeft="@+id/Question" 
+			android:layout_alignRight="@+id/Question" 
+			android:max="5"
+			android:progress="2" 
+			android:paddingLeft="20dp" 
+			android:paddingRight="20dp" 
+			android:id="@+id/seekBar">
+		</SeekBar>
+		
+		<RelativeLayout 
+		android:id="@+id/seekbarLayout"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/seekBar">
+			<TextView android:text="0" 
+            	android:id="@+id/txvSeekBarMin" 
+            	android:layout_width="wrap_content" 
+            	android:layout_height="wrap_content"
+            	android:textSize="20sp"
+            	android:layout_alignParentLeft="true"
+            	android:paddingLeft="10sp">
+        	</TextView>
+        	<TextView android:text="5" 
+            	android:id="@+id/txvSeekBarMax" 
+            	android:layout_width="wrap_content" 
+            	android:layout_height="wrap_content"
+            	android:textSize="20sp"
+            	android:layout_alignParentRight="true"
+            	android:paddingRight="5sp">
+        	</TextView>
+        	<TextView android:text="Not bad" 
+            	android:id="@+id/analogSeekBarMin" 
+            	android:layout_width="wrap_content" 
+            	android:layout_height="wrap_content"
+            	android:textSize="20sp"
+            	android:layout_alignParentLeft="true"
+            	android:gravity="left"
+            	android:paddingLeft="10sp"
+            	android:maxWidth="150dp"
+            	android:layout_below="@+id/txvSeekBarMin">
+           	</TextView>
+        	<TextView android:text="Worst imaginable" 
+            	android:id="@+id/analogSeekBarMax" 
+            	android:layout_width="wrap_content" 
+            	android:layout_height="wrap_content"
+            	android:textSize="20sp"
+            	android:layout_alignParentRight="true"
+            	android:gravity="right"
+            	android:paddingRight="5sp"
+            	android:maxWidth="150dp"
+            	android:layout_below="@+id/txvSeekBarMax">
+        	</TextView>
+        </RelativeLayout>
+        
+		<Button android:id="@+id/BackButton"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Back"
+				android:textSize="20sp"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentBottom="true"
+				android:minWidth="125dp"
+				android:minHeight="75dp">
+<!--				android:minHeight="50px"-->
+<!--				android:maxHeight="50px">-->
+		</Button>
+				
+		<Button android:id="@+id/NextButton"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Next" 
+				android:textSize="20sp"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentBottom="true"
+				android:minWidth="125dp"
+				android:minHeight="75dp">
+<!--				android:minHeight="50px"-->
+<!--				android:maxHeight="50px">-->
+		</Button>		
+
+</RelativeLayout>		    
+

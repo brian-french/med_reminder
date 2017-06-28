@@ -16,16 +16,15 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.Vibrator;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MedReminderDialog extends Activity {
+public class DailyFlareDialog extends Activity {
 
-	public static final String MEDREMINDLOG = "MedRemind_log.csv";
+	public static final String DAILYFLARELOG = "DailyFlare_log.csv";
 	
 	private RingtoneManager rm;
 	private MediaPlayer mMediaPlayer;
@@ -49,7 +48,7 @@ public class MedReminderDialog extends Activity {
 	boolean vibrate;
 	int snoozeCount = -1;
 	
-	Button record, snooze, week1;
+	Button yesButton, noButton;
 	private long time;
 	
     @Override
@@ -59,21 +58,21 @@ public class MedReminderDialog extends Activity {
         // prevent a touch event outside the dialog window from canceling the prompt
         setFinishOnTouchOutside(false);
         
-        setContentView(R.layout.activity_med_reminder_dialog);
-        record = (Button) findViewById(R.id.reminderRecordButton);
-        snooze = (Button) findViewById(R.id.reminderSnoozeButton);
-        week1 = (Button) findViewById(R.id.reminderWeek1Button);
+        setContentView(R.layout.activity_daily_flare_dialog);
+        yesButton = (Button) findViewById(R.id.flareYesButton);
+        //snooze = (Button) findViewById(R.id.flareSnoozeButton);
+        noButton = (Button) findViewById(R.id.flareNoButton);
 
         time = System.currentTimeMillis();
         
         prefs = new AppPreferences(getApplicationContext());
 
-		vol = prefs.getVolumeSetting();
-        ringtone = prefs.getRingtoneSetting();
-        vibrate = prefs.getVibrateSetting();
-        
-        rm = new RingtoneManager(this);
-    	rm.setType(RingtoneManager.TYPE_ALARM);
+//		vol = prefs.getVolumeSetting();
+//        ringtone = prefs.getRingtoneSetting();
+//        vibrate = prefs.getVibrateSetting();
+//        
+//        rm = new RingtoneManager(this);
+//    	rm.setType(RingtoneManager.TYPE_ALARM);
         
         intent = getIntent();
         // set the prompt time if it hasn't already been set
@@ -86,51 +85,48 @@ public class MedReminderDialog extends Activity {
 		snoozeCount = intent.getIntExtra("SNOOZE_CNT", -1);
 		snoozeable = intent.getBooleanExtra(Constants.ALARM_CAN_SNOOZE, false);
 		snoozeable &= snoozeCount != 0;
-		requestCode = intent.getIntExtra(Constants.ALARM_RQ_CODE, Constants.ALARM_ALERT_RQ_CODE);
+		requestCode = intent.getIntExtra(Constants.ALARM_RQ_CODE, Constants.ALARM_DELAYED_RQ_CODE);
 		if (message == null) {
 			message = "Dismiss alarm?";
 		}
 		
 		sched = new AlarmScheduler(getApplicationContext());
 		
-		snoozeIntent = new Intent(this, AlarmReceiver.class);//getApplicationContext(), Alarm.class);
+		snoozeIntent = new Intent(this, DailyFlareDialog.class);//getApplicationContext(), Alarm.class);
 		snoozeIntent.putExtras(intent.getExtras());
 		
-		audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		//audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 		
-		record.setOnClickListener(new OnClickListener() {
+		yesButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// launch the interview the alarm has been dismissed
-        	   logMedication();
-        	   scheduleNextReminder(time);
-        	   launchFlareDialog();
-               stop();
-			}
-			
-		});
-		
-		snooze.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-    		   long alarmTime = time + (10L * Constants.MINUTE_MILLIS);
-    		   sched.rescheduleIntent(snoozeIntent, requestCode, alarmTime);
-    		   stop();
-			}
-			
-		});
-		
-		week1.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				scheduleNextReminder(time);
+				Intent i = new Intent(DailyFlareDialog.this, FlareQ1.class);
+				startActivity(i);
 				stop();
-				launchFlareDialog();
-				finish();
+			}
+			
+		});
+		
+//		snooze.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//
+//    		   long alarmTime = time + (10L * Constants.MINUTE_MILLIS);
+//    		   sched.rescheduleIntent(snoozeIntent, requestCode, alarmTime);
+//    		   stop();
+//			}
+//			
+//		});
+		
+		noButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				recordNoResponse();
+				stop();
 			}
 			
 		});
@@ -150,12 +146,12 @@ public class MedReminderDialog extends Activity {
 		
 		//TODO may want to reintroduce the keypad lock disable here...
 		
-		// alarm toggling set up
-		registerReceiver(alarmToggleReceiver, new IntentFilter(Constants.ALARM_TOGGLE_ACTION));
-		Intent alarmToggle = new Intent();
-		alarmToggle.setAction(Constants.ALARM_TOGGLE_ACTION);
-		alarmToggle.putExtra("toggle_count", 1);
-		sched.rescheduleIntent(alarmToggle, Constants.ALARM_TOGGLE_RQ_CODE, time + (Constants.MINUTE_MILLIS / 2));
+//		// alarm toggling set up
+//		registerReceiver(alarmToggleReceiver, new IntentFilter(Constants.ALARM_TOGGLE_ACTION));
+//		Intent alarmToggle = new Intent();
+//		alarmToggle.setAction(Constants.ALARM_TOGGLE_ACTION);
+//		alarmToggle.putExtra("toggle_count", 1);
+//		sched.rescheduleIntent(alarmToggle, Constants.ALARM_TOGGLE_RQ_CODE, time + (Constants.MINUTE_MILLIS / 2));
 		
         if (!prefs.getIsEnabled()) {
         	// this has been disabled, just eat this alarm and close
@@ -163,22 +159,15 @@ public class MedReminderDialog extends Activity {
         	return;
         }
         
-		initAlarm();
+		//initAlarm();
     }
-    
-	private void scheduleNextReminder(long time) {
-		
-		long nextAlarm = prefs.getNextAlarmTime(time);
-		Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
-		sched.rescheduleIntent(i, requestCode, nextAlarm);
-	}
     
     @Override
     public void onDestroy() {
     	stop();
-    	cancelTimeout();
-    	unregisterReceiver(alarmToggleReceiver);
-    	audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldAlarmVolume, 0);
+//    	cancelTimeout();
+//    	unregisterReceiver(alarmToggleReceiver);
+//    	audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldAlarmVolume, 0);
     	
     	if (wl.isHeld())
         	wl.release();
@@ -216,9 +205,9 @@ public class MedReminderDialog extends Activity {
  	    return super.onKeyDown(keyCode, event);
  	}
  	
- 	private void logMedication() {
+ 	private void recordNoResponse() {
  		Logger logger = new Logger(this);
- 		logger.LogEntry(MEDREMINDLOG, System.currentTimeMillis(), null);
+ 		logger.LogEntry(DAILYFLARELOG, System.currentTimeMillis(), ",,,,,,,,,,");
  	}
     
     private void initAlarm() {
@@ -304,23 +293,6 @@ public class MedReminderDialog extends Activity {
 //        if (wl.isHeld())
 //        	wl.release();
         finish();
-    }
-    
-    private void launchFlareDialog() {
-    	int hour2 = prefs.getInt(Constants.PREFS_HOUR_TWO, -1);
-		int minute2 = prefs.getInt(Constants.PREFS_MINUTE_TWO, -1);
-		Time now = new Time();
-		now.setToNow();
-		
-		Time alarm2 = new Time();
-		alarm2.setToNow();
-		alarm2.set(0, minute2, hour2, alarm2.monthDay, alarm2.month, alarm2.year);
-		
-		if (Time.compare(now, alarm2) > 0) {
-			// this is the evening prompt
-			Intent i = new Intent(this, DailyFlareDialog.class);
-			startActivity(i);
-		}
     }
 	
 	 // Do the common stuff when starting the alarm.

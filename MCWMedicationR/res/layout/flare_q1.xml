@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/ButtonLayout"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+				
+		<TextView android:id="@+id/Question" 
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content"
+              android:text="How long did the flare last?"
+              android:textSize="20sp"
+              android:layout_alignParentTop="true"
+              android:layout_marginLeft="10sp"
+              android:layout_marginRight="10sp"
+              android:layout_marginTop="5sp"
+              android:layout_marginBottom="10sp">
+        </TextView>
+		
+		<Button android:id="@+id/BackButton"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Back"
+				android:textSize="20sp"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentBottom="true"
+				android:minWidth="125dp"
+				android:minHeight="75dp">
+<!--				android:minHeight="50px"-->
+<!--				android:maxHeight="50px">-->
+		</Button>
+				
+		<Button android:id="@+id/NextButton"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Next" 
+				android:textSize="20sp"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentBottom="true"
+				android:minWidth="125dp"
+				android:minHeight="75dp">
+<!--				android:minHeight="50px"-->
+<!--				android:maxHeight="50px">-->
+		</Button>		
+		
+		<ListView android:id="@+id/List"
+				android:choiceMode="singleChoice"
+				android:clickable="true"
+				android:focusableInTouchMode="true"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/Question"
+				android:layout_above="@+id/BackButton"
+				android:paddingTop="10dp"
+				android:entries="@array/flareq1">
+		</ListView>
+
+
+</RelativeLayout>		    
+

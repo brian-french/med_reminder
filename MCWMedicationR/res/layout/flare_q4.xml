@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/ButtonLayout"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+				
+		<TextView android:id="@+id/Question" 
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content"
+              android:text="Please rank the symptoms that defined your flare in order of severity with the most severe first:"
+              android:textSize="20sp"
+              android:layout_alignParentTop="true"
+              android:layout_marginLeft="10sp"
+              android:layout_marginRight="10sp"
+              android:layout_marginTop="5sp"
+              android:layout_marginBottom="10sp">
+        </TextView>
+				 
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:id="@+id/symptom1"
+		    android:layout_below="@+id/Question">
+		    <TextView 
+		        android:text="Pelvic pain"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp"
+		        android:layout_margin="5dp" />
+		    <Spinner
+		        android:id="@+id/symptomRank1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:spinnerMode="dialog"
+		        android:entries="@array/flareq4"/>
+		</LinearLayout>
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:id="@+id/symptom2"
+		    android:layout_below="@+id/symptom1">
+		    <TextView 
+		        android:text="Pain elsewhere"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp"
+		        android:layout_margin="5dp" />
+		    <Spinner
+		        android:id="@+id/symptomRank2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:spinnerMode="dialog"
+		        android:entries="@array/flareq4"/>
+		</LinearLayout>
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:id="@+id/symptom3"
+		    android:layout_below="@+id/symptom2">
+		    <TextView 
+		        android:text="Urgency/frequency"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp"
+		        android:layout_margin="5dp" />
+		    <Spinner
+		        android:id="@+id/symptomRank3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:spinnerMode="dialog"
+		        android:entries="@array/flareq4"/>
+		</LinearLayout>
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:id="@+id/symptom4"
+		    android:layout_below="@+id/symptom3">
+		    <TextView 
+		        android:text="Fatigue"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp"
+		        android:layout_margin="5dp" />
+		    <Spinner
+		        android:id="@+id/symptomRank4"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:spinnerMode="dialog"
+		        android:entries="@array/flareq4"/>
+		</LinearLayout>
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:id="@+id/symptom5"
+		    android:layout_below="@+id/symptom4">
+		    <TextView 
+		        android:text="Disability"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp"
+		        android:layout_margin="5dp" />
+		    <Spinner
+		        android:id="@+id/symptomRank5"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:spinnerMode="dialog"
+		        android:entries="@array/flareq4"/>
+		</LinearLayout>
+			
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:id="@+id/symptom6"
+		    android:layout_below="@+id/symptom5">
+		    <LinearLayout
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:orientation="vertical">
+				    <TextView 
+				        android:text="Other"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:textSize="20sp"
+				        android:layout_margin="5dp" />
+				    <EditText
+				        android:id="@+id/symptomSpecify6"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:hint="Please specify..."
+				        android:textSize="20sp"/>
+			    </LinearLayout>
+			   	<Spinner
+		        android:id="@+id/symptomRank6"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:spinnerMode="dialog"
+		        android:entries="@array/flareq4"/>
+		</LinearLayout>
+
+		<Button android:id="@+id/BackButton"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Back"
+				android:textSize="20sp"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentBottom="true"
+				android:minWidth="125dp"
+				android:minHeight="75dp">
+<!--				android:minHeight="50px"-->
+<!--				android:maxHeight="50px">-->
+		</Button>
+				
+		<Button android:id="@+id/NextButton"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Save &amp; Exit" 
+				android:textSize="20sp"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentBottom="true"
+				android:minWidth="125dp"
+				android:minHeight="75dp">
+<!--				android:minHeight="50px"-->
+<!--				android:maxHeight="50px">-->
+		</Button>		
+
+</RelativeLayout>		    
+

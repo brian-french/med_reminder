@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="flareq1">
+    	<item>&lt; 1 hour</item>
+        <item>1-6 hours</item>
+        <item>7-17 hours</item>
+        <item>18-24 hours</item>
+        <item>&gt; 1 day</item>
+    </string-array>
+    <string-array name="flareq4">
+    	<item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+</resources>
