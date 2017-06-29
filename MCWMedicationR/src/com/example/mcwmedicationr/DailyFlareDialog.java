@@ -48,7 +48,7 @@ public class DailyFlareDialog extends Activity {
 	boolean vibrate;
 	int snoozeCount = -1;
 	
-	Button yesButton, noButton;
+	Button yesButton, noButton, snooze;
 	private long time;
 	
     @Override
@@ -60,19 +60,19 @@ public class DailyFlareDialog extends Activity {
         
         setContentView(R.layout.activity_daily_flare_dialog);
         yesButton = (Button) findViewById(R.id.flareYesButton);
-        //snooze = (Button) findViewById(R.id.flareSnoozeButton);
+        snooze = (Button) findViewById(R.id.flareSnoozeButton);
         noButton = (Button) findViewById(R.id.flareNoButton);
 
         time = System.currentTimeMillis();
         
         prefs = new AppPreferences(getApplicationContext());
 
-//		vol = prefs.getVolumeSetting();
-//        ringtone = prefs.getRingtoneSetting();
-//        vibrate = prefs.getVibrateSetting();
-//        
-//        rm = new RingtoneManager(this);
-//    	rm.setType(RingtoneManager.TYPE_ALARM);
+		vol = prefs.getVolumeSetting();
+        ringtone = prefs.getRingtoneSetting();
+        vibrate = prefs.getVibrateSetting();
+        
+        rm = new RingtoneManager(this);
+    	rm.setType(RingtoneManager.TYPE_ALARM);
         
         intent = getIntent();
         // set the prompt time if it hasn't already been set
@@ -85,7 +85,7 @@ public class DailyFlareDialog extends Activity {
 		snoozeCount = intent.getIntExtra("SNOOZE_CNT", -1);
 		snoozeable = intent.getBooleanExtra(Constants.ALARM_CAN_SNOOZE, false);
 		snoozeable &= snoozeCount != 0;
-		requestCode = intent.getIntExtra(Constants.ALARM_RQ_CODE, Constants.ALARM_DELAYED_RQ_CODE);
+		requestCode = intent.getIntExtra(Constants.ALARM_RQ_CODE, Constants.ALARM_30MIN_RQ_CODE);
 		if (message == null) {
 			message = "Dismiss alarm?";
 		}
@@ -95,7 +95,7 @@ public class DailyFlareDialog extends Activity {
 		snoozeIntent = new Intent(this, DailyFlareDialog.class);//getApplicationContext(), Alarm.class);
 		snoozeIntent.putExtras(intent.getExtras());
 		
-		//audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 		
 		yesButton.setOnClickListener(new OnClickListener() {
 
@@ -109,17 +109,17 @@ public class DailyFlareDialog extends Activity {
 			
 		});
 		
-//		snooze.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//
-//    		   long alarmTime = time + (10L * Constants.MINUTE_MILLIS);
-//    		   sched.rescheduleIntent(snoozeIntent, requestCode, alarmTime);
-//    		   stop();
-//			}
-//			
-//		});
+		snooze.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+    		   long alarmTime = time + (10L * Constants.MINUTE_MILLIS);
+    		   sched.rescheduleIntent(snoozeIntent, requestCode, alarmTime);
+    		   stop();
+			}
+			
+		});
 		
 		noButton.setOnClickListener(new OnClickListener() {
 
@@ -135,23 +135,23 @@ public class DailyFlareDialog extends Activity {
 		wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "com.ices.cmu.EMA.service.Alarm");
 		wl.acquire();
 		
-		// release the wake lock in the alarm receiver
-		if (AlarmReceiver.br_wl != null) {
-			if (AlarmReceiver.br_wl.isHeld()) {
-				System.out.println("Releasing alarm receiver wakelock");
-				AlarmReceiver.br_wl.release();
-				AlarmReceiver.br_wl = null;
-			}
-		}
+//		// release the wake lock in the alarm receiver
+//		if (AlarmReceiver.br_wl != null) {
+//			if (AlarmReceiver.br_wl.isHeld()) {
+//				System.out.println("Releasing alarm receiver wakelock");
+//				AlarmReceiver.br_wl.release();
+//				AlarmReceiver.br_wl = null;
+//			}
+//		}
 		
 		//TODO may want to reintroduce the keypad lock disable here...
 		
-//		// alarm toggling set up
-//		registerReceiver(alarmToggleReceiver, new IntentFilter(Constants.ALARM_TOGGLE_ACTION));
-//		Intent alarmToggle = new Intent();
-//		alarmToggle.setAction(Constants.ALARM_TOGGLE_ACTION);
-//		alarmToggle.putExtra("toggle_count", 1);
-//		sched.rescheduleIntent(alarmToggle, Constants.ALARM_TOGGLE_RQ_CODE, time + (Constants.MINUTE_MILLIS / 2));
+		// alarm toggling set up
+		registerReceiver(alarmToggleReceiver, new IntentFilter(Constants.ALARM_TOGGLE_ACTION));
+		Intent alarmToggle = new Intent();
+		alarmToggle.setAction(Constants.ALARM_TOGGLE_ACTION);
+		alarmToggle.putExtra("toggle_count", 1);
+		sched.rescheduleIntent(alarmToggle, Constants.ALARM_TOGGLE_RQ_CODE, time + (Constants.MINUTE_MILLIS / 2));
 		
         if (!prefs.getIsEnabled()) {
         	// this has been disabled, just eat this alarm and close
@@ -159,15 +159,15 @@ public class DailyFlareDialog extends Activity {
         	return;
         }
         
-		//initAlarm();
+		initAlarm();
     }
     
     @Override
     public void onDestroy() {
     	stop();
-//    	cancelTimeout();
-//    	unregisterReceiver(alarmToggleReceiver);
-//    	audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldAlarmVolume, 0);
+    	cancelTimeout();
+    	unregisterReceiver(alarmToggleReceiver);
+    	audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldAlarmVolume, 0);
     	
     	if (wl.isHeld())
         	wl.release();
@@ -204,6 +204,13 @@ public class DailyFlareDialog extends Activity {
  	    }
  	    return super.onKeyDown(keyCode, event);
  	}
+ 	
+	private void scheduleNextReminder(long time) {
+		
+		long nextAlarm = prefs.getNextFlareAlarmTime();
+		Intent i = new Intent(getApplicationContext(), DailyFlareDialog.class);
+		sched.rescheduleIntent(i, requestCode, nextAlarm);
+	}
  	
  	private void recordNoResponse() {
  		Logger logger = new Logger(this);

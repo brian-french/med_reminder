@@ -124,4 +124,23 @@ public class AppPreferences {
 		editor.putBoolean(Constants.PREFS_IS_ENABLED, value);
 		editor.commit();
 	}
+
+	public long getNextFlareAlarmTime() {
+		int hour1 = prefs.getInt(Constants.PREFS_FLARE_HOUR, -1);
+		int minute1 = prefs.getInt(Constants.PREFS_FLARE_MINUTE, -1);
+		
+		Time now = new Time();
+		now.setToNow();
+		
+		Time alarm1 = new Time();
+		alarm1.setToNow();
+		alarm1.set(0, minute1, hour1, alarm1.monthDay, alarm1.month, alarm1.year);
+
+		long nextAlarm = alarm1.toMillis(false);
+		if (Time.compare(now, alarm1) > 0) {
+			nextAlarm += (Constants.HOUR_MILLIS * 24L);
+		}
+		// after the second alarm of the day so the next one is tomorrow
+		return nextAlarm;
+	}
 }

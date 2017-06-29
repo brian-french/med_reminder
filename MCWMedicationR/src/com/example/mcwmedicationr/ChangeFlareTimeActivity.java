@@ -9,12 +9,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TimePicker;
 
-public class ChangeTimeActivity extends Activity {
+public class ChangeFlareTimeActivity extends Activity {
 
 	AppPreferences prefs;
 	AlarmScheduler sched;
 	
-	TimePicker time1, time2;
+	TimePicker time1;
 	Button save, cancel;
 	
 	@Override
@@ -34,25 +34,20 @@ public class ChangeTimeActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.change_time_layout);
+		setContentView(R.layout.change_flare_time_layout);
 		
 		prefs = new AppPreferences(this);
 		sched = new AlarmScheduler(this);
 		
 		time1 = (TimePicker) findViewById(R.id.timePicker1);
-		time2 = (TimePicker) findViewById(R.id.timePicker2);
 		save = (Button) findViewById(R.id.timeSave);
 		cancel = (Button) findViewById(R.id.timeCancel);
 		
-		int hour1 = prefs.getTimeValue(Constants.PREFS_HOUR_ONE, 7);
-		int minute1 = prefs.getTimeValue(Constants.PREFS_MINUTE_ONE, 0);
-		int hour2 = prefs.getTimeValue(Constants.PREFS_HOUR_TWO, 19);
-		int minute2 = prefs.getTimeValue(Constants.PREFS_MINUTE_TWO, 0);
+		int hour1 = prefs.getTimeValue(Constants.PREFS_FLARE_HOUR, 21);
+		int minute1 = prefs.getTimeValue(Constants.PREFS_FLARE_MINUTE, 0);
 		
 		time1.setCurrentHour(hour1);
 		time1.setCurrentMinute(minute1);
-		time2.setCurrentHour(hour2);
-		time2.setCurrentMinute(minute2);
 		
 		cancel.setOnClickListener(new OnClickListener() {
 
@@ -68,20 +63,17 @@ public class ChangeTimeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				prefs.setTimeValue(Constants.PREFS_HOUR_ONE, time1.getCurrentHour());
-				prefs.setTimeValue(Constants.PREFS_MINUTE_ONE, time1.getCurrentMinute());
-				prefs.setTimeValue(Constants.PREFS_HOUR_TWO, time2.getCurrentHour());
-				prefs.setTimeValue(Constants.PREFS_MINUTE_TWO, time2.getCurrentMinute());
+				prefs.setTimeValue(Constants.PREFS_FLARE_HOUR, time1.getCurrentHour());
+				prefs.setTimeValue(Constants.PREFS_FLARE_MINUTE, time1.getCurrentMinute());
 				
-				long nextAlarm = prefs.getNextAlarmTime(System.currentTimeMillis());
-				Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
-				sched.rescheduleIntent(i, Constants.ALARM_ALERT_RQ_CODE, nextAlarm);
+				long nextAlarm = prefs.getNextFlareAlarmTime();
+				Intent i = new Intent(getApplicationContext(), DailyFlareDialog.class);
+				sched.rescheduleIntent(i, Constants.ALARM_30MIN_RQ_CODE, nextAlarm);
 				
 				if (getIntent().getBooleanExtra("init", false)) {
 					// runnning the initial configuration, launch the ringtone setup next
-					Intent intent = new Intent(getApplicationContext(), ChangeFlareTimeActivity.class);
-					intent.putExtra("init", true);
-					startActivity(intent);
+					Intent ring = new Intent(getApplicationContext(), ChangeAlarmActivity.class);
+					startActivity(ring);
 				}
 				
 				finish();

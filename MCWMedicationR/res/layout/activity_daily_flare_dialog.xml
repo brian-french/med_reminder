@@ -33,7 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Yes"
-            android:textSize="16dp"
+            android:textSize="20sp"
             android:layout_marginRight="25dp"
             android:width="125dp">
         </Button>
@@ -42,9 +42,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="No"
-            android:textSize="16dp"
+            android:textSize="20sp"
             android:width="125dp">
         </Button>
     </LinearLayout>
+     <Button
+            android:id="@+id/flareSnoozeButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Snooze"
+            android:textSize="20sp">
+        </Button>
 
 </LinearLayout>
