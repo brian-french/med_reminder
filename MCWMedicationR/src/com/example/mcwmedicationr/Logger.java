@@ -14,7 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
-import android.media.MediaScannerConnection;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
@@ -65,8 +66,12 @@ public class Logger {
 			if (writer != null) {
 				writer.close();
 			}
-			// have to gate this since the boot receiver logging with crash if it makes this call
-			MediaScannerConnection.scanFile(context, new String[] { log.getAbsolutePath() }, null, null);
+			
+			// have to scan the new file to make it show up on linux/mac
+			Intent mediaScannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+			Uri fileContentUri = Uri.fromFile(log); 
+			mediaScannerIntent.setData(fileContentUri);
+			context.sendBroadcast(mediaScannerIntent); 
 
 		} else {
 			Log.e("LOGGING", "Error: failed to open file: " + logFile);

@@ -21,8 +21,12 @@ public class FlareQ4 extends Activity {
 	Spinner[] symptoms = new Spinner[6];
 	EditText other;
 	Intent inputIntent;
+	private static final String[] keys = {"com.example.mcwmedicationr.q1", "com.example.mcwmedicationr.q2", "com.example.mcwmedicationr.q3" };
 	
-	private static final String DATAKEY = "response";
+	private static final String[] RANKKEYS = {"com.example.mcwmedicationr.symptom1", "com.example.mcwmedicationr.symptom2",
+		"com.example.mcwmedicationr.symptom3", "com.example.mcwmedicationr.symptom4", "com.example.mcwmedicationr.symptom5",
+		"com.example.mcwmedicationr.symptom6"};
+	private static final String OTHERKEY = "com.example.mcwmedicationr.other";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class FlareQ4 extends Activity {
 		
 		inputIntent = getIntent();
 		
-		setContentView(R.layout.flare_q2);
+		setContentView(R.layout.flare_q4);
 		back = (Button) findViewById(R.id.BackButton);
 		next = (Button) findViewById(R.id.NextButton);
 		symptoms[0] = (Spinner) findViewById(R.id.symptomRank1);
@@ -42,12 +46,18 @@ public class FlareQ4 extends Activity {
 		symptoms[5] = (Spinner) findViewById(R.id.symptomRank6);
 		other = (EditText) findViewById(R.id.symptomSpecify6);
 		
+		System.out.println(getIntent().getExtras().toString());
+		
 		back.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(FlareQ4.this, FlareQ3.class);
-				i.putExtra(DATAKEY, inputIntent.getStringExtra(DATAKEY));
+				i.putExtras(inputIntent.getExtras());
+				for (int j=0; j < symptoms.length; j++) {
+					i.putExtra(RANKKEYS[j], symptoms[j].getSelectedItemPosition());
+				}
+				i.putExtra(OTHERKEY, other.getText().toString());
 				startActivity(i);
 				finish();
 			}
@@ -60,12 +70,14 @@ public class FlareQ4 extends Activity {
 			public void onClick(View v) {
 				if (validateData()) {
 					StringBuilder sb = new StringBuilder();
-					sb.append(inputIntent.getStringExtra(DATAKEY));
-					for (int i=0; i<symptoms.length; i++) {
+					for (String key: keys) {
+						sb.append(inputIntent.getIntExtra(key, -1));
 						sb.append(",");
-						sb.append(symptoms[i].getSelectedItemPosition());
 					}
-					sb.append(",");
+					for (int i=0; i<symptoms.length; i++) {
+						sb.append(symptoms[i].getSelectedItemPosition() + 1);
+						sb.append(",");
+					}
 					sb.append(other.getText().toString());
 					String data = sb.toString();
 					
@@ -78,6 +90,13 @@ public class FlareQ4 extends Activity {
 			}
 			
 		});
+		
+		if (inputIntent.hasExtra(OTHERKEY)) {
+			for (int j=0; j < symptoms.length; j++) {
+				symptoms[j].setSelection(inputIntent.getIntExtra(RANKKEYS[j], 0));
+			}
+			other.setText(inputIntent.getStringExtra(OTHERKEY));
+		}
 		
 	}
 
@@ -123,7 +142,7 @@ public class FlareQ4 extends Activity {
 			Toast.makeText(this, "There are duplicate values in your ranking. Each symptom must have a unique rank value.", Toast.LENGTH_LONG).show();
 		}
 		
-		if (values.get(5) != 6 & other.getText().toString().equals("")) {
+		if (values.get(5) != 5 & other.getText().toString().equals("")) {
 			valid = false;
 			Toast.makeText(this, "Please specify the other symptom that you ranked.", Toast.LENGTH_SHORT).show();
 		}

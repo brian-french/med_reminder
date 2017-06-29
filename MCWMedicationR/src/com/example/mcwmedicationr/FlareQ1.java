@@ -14,12 +14,16 @@ public class FlareQ1 extends Activity {
 	Button back, next;
 	ListView responses;
 	
-	private static final String DATAKEY = "response";
+	Intent inputIntent;
+	
+	private static final String DATAKEY = "com.example.mcwmedicationr.q1";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		inputIntent = getIntent();
 		
 		setContentView(R.layout.flare_q1);
 		back = (Button) findViewById(R.id.BackButton);
@@ -34,19 +38,18 @@ public class FlareQ1 extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(FlareQ1.this, FlareQ2.class);
+				if (inputIntent.getExtras() != null) {
+					i.putExtras(inputIntent.getExtras());
+				}
 				i.putExtra(DATAKEY, responses.getSelectedItemPosition());
 				startActivity(i);
 				finish();
 			}
 			
 		});
-		String data = getIntent().getStringExtra(DATAKEY);
-		if (data != null) {
-			String[] parts = data.split(",");
-			if (parts.length == 1) {
-				int position = Integer.parseInt(parts[parts.length - 1]);
-				responses.setSelection(position);
-			}
+		int position = inputIntent.getIntExtra(DATAKEY, -1);
+		if (position != -1) {
+			responses.setSelection(position);
 		}
 	}
 

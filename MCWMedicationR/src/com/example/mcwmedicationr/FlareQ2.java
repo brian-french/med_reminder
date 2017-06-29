@@ -16,7 +16,7 @@ public class FlareQ2 extends Activity {
 	SeekBar seekbar;
 	Intent inputIntent;
 	
-	private static final String DATAKEY = "response";
+	private static final String DATAKEY = "com.example.mcwmedicationr.q2";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,8 @@ public class FlareQ2 extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(FlareQ2.this, FlareQ1.class);
-				i.putExtra(DATAKEY, inputIntent.getStringExtra(DATAKEY));
+				i.putExtras(inputIntent.getExtras());
+				i.putExtra(DATAKEY, seekbar.getProgress());
 				startActivity(i);
 				finish();
 			}
@@ -46,21 +47,18 @@ public class FlareQ2 extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(FlareQ2.this, FlareQ2.class);
-				i.putExtra(DATAKEY, inputIntent.getStringExtra(DATAKEY) + "," + seekbar.getProgress());
+				Intent i = new Intent(FlareQ2.this, FlareQ3.class);
+				i.putExtras(inputIntent.getExtras());
+				i.putExtra(DATAKEY, seekbar.getProgress());
 				startActivity(i);
 				finish();
 			}
 			
 		});
 		
-		String data = inputIntent.getStringExtra(DATAKEY);
-		if (data != null) {
-			String[] parts = data.split(",");
-			if (parts.length == 2) {
-				int position = Integer.parseInt(parts[parts.length - 1]);
-				seekbar.setProgress(position);
-			}
+		int position = inputIntent.getIntExtra(DATAKEY, -1);
+		if (position != -1) {
+			seekbar.setProgress(position);
 		}
 	}
 
