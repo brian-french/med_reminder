@@ -17,6 +17,7 @@ public class ViewLog extends Activity {
 
 	private static final int MENU_RINGTONE = 1;
 	private static final int MENU_TIME = 2;
+	private static final int MENU_FLARE = 3;
 	Button exit, settings;
 	TextView log;
 	Logger logger;
@@ -73,7 +74,8 @@ public class ViewLog extends Activity {
 		
 		if (enabled) {
 			MenuItem ring = menu.add(0, MENU_RINGTONE, 0, "Change ringtone settings");
-			MenuItem time = menu.add(0, MENU_TIME, 0, "Change alarm times");
+			MenuItem time = menu.add(0, MENU_TIME, 0, "Change med reminder times");
+			MenuItem flare = menu.add(0, MENU_FLARE, 0, "Change flare prompt time");
 		}
 		
 		return super.onCreateOptionsMenu(menu);
@@ -91,6 +93,11 @@ public class ViewLog extends Activity {
 			return true;
 		case MENU_TIME:
 			intent = new Intent(this, ChangeTimeActivity.class);
+			startActivity(intent);
+			finish();
+			return true;
+		case MENU_FLARE:
+			intent = new Intent(this, ChangeFlareTimeActivity.class);
 			startActivity(intent);
 			finish();
 			return true;
