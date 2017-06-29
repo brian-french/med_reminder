@@ -104,6 +104,7 @@ public class DailyFlareDialog extends Activity {
 				// launch the interview the alarm has been dismissed
 				Intent i = new Intent(DailyFlareDialog.this, FlareQ1.class);
 				startActivity(i);
+				scheduleNextReminder();
 				stop();
 			}
 			
@@ -125,6 +126,7 @@ public class DailyFlareDialog extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				scheduleNextReminder();
 				recordNoResponse();
 				stop();
 			}
@@ -205,7 +207,7 @@ public class DailyFlareDialog extends Activity {
  	    return super.onKeyDown(keyCode, event);
  	}
  	
-	private void scheduleNextReminder(long time) {
+	private void scheduleNextReminder() {
 		
 		long nextAlarm = prefs.getNextFlareAlarmTime();
 		Intent i = new Intent(getApplicationContext(), DailyFlareDialog.class);
