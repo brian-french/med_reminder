@@ -24,16 +24,19 @@
 		    android:layout_below="@+id/Question">
 		    <TextView 
 		        android:text="Pelvic pain"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:textSize="20sp"
-		        android:layout_margin="5dp" />
+		        android:layout_margin="5dp"
+		        android:gravity="center" 
+		        android:layout_weight="1"/>
 		    <Spinner
 		        android:id="@+id/symptomRank1"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:spinnerMode="dialog"
-		        android:entries="@array/flareq4"/>
+		        android:entries="@array/flareq4"
+		        android:layout_weight="1"/>
 		</LinearLayout>
 		<LinearLayout
 		    android:layout_width="fill_parent"
@@ -43,16 +46,19 @@
 		    android:layout_below="@+id/symptom1">
 		    <TextView 
 		        android:text="Pain elsewhere"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:textSize="20sp"
-		        android:layout_margin="5dp" />
+		        android:layout_margin="5dp"
+		        android:gravity="center" 
+		        android:layout_weight="1" />
 		    <Spinner
 		        android:id="@+id/symptomRank2"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:spinnerMode="dialog"
-		        android:entries="@array/flareq4"/>
+		        android:entries="@array/flareq4"
+		        android:layout_weight="1"/>
 		</LinearLayout>
 		<LinearLayout
 		    android:layout_width="fill_parent"
@@ -62,16 +68,19 @@
 		    android:layout_below="@+id/symptom2">
 		    <TextView 
 		        android:text="Urgency/frequency"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:textSize="20sp"
-		        android:layout_margin="5dp" />
+		        android:layout_margin="5dp"
+		        android:gravity="center" 
+		        android:layout_weight="1" />
 		    <Spinner
 		        android:id="@+id/symptomRank3"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:spinnerMode="dialog"
-		        android:entries="@array/flareq4"/>
+		        android:entries="@array/flareq4"
+		        android:layout_weight="1"/>
 		</LinearLayout>
 		<LinearLayout
 		    android:layout_width="fill_parent"
@@ -81,16 +90,19 @@
 		    android:layout_below="@+id/symptom3">
 		    <TextView 
 		        android:text="Fatigue"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:textSize="20sp"
-		        android:layout_margin="5dp" />
+		        android:layout_margin="5dp"
+		        android:gravity="center" 
+		        android:layout_weight="1" />
 		    <Spinner
 		        android:id="@+id/symptomRank4"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:spinnerMode="dialog"
-		        android:entries="@array/flareq4"/>
+		        android:entries="@array/flareq4"
+		        android:layout_weight="1"/>
 		</LinearLayout>
 		<LinearLayout
 		    android:layout_width="fill_parent"
@@ -100,16 +112,19 @@
 		    android:layout_below="@+id/symptom4">
 		    <TextView 
 		        android:text="Disability"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:textSize="20sp"
-		        android:layout_margin="5dp" />
+		        android:layout_margin="5dp"
+		        android:gravity="center" 
+		        android:layout_weight="1" />
 		    <Spinner
 		        android:id="@+id/symptomRank5"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:spinnerMode="dialog"
-		        android:entries="@array/flareq4"/>
+		        android:entries="@array/flareq4"
+		        android:layout_weight="1"/>
 		</LinearLayout>
 			
 		<LinearLayout
@@ -118,30 +133,41 @@
 		    android:orientation="horizontal"
 		    android:id="@+id/symptom6"
 		    android:layout_below="@+id/symptom5">
-		    <LinearLayout
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:orientation="vertical">
-				    <TextView 
-				        android:text="Other"
-				        android:layout_width="fill_parent"
-				        android:layout_height="wrap_content"
-				        android:textSize="20sp"
-				        android:layout_margin="5dp" />
-				    <EditText
-				        android:id="@+id/symptomSpecify6"
-				        android:layout_width="fill_parent"
-				        android:layout_height="wrap_content"
-				        android:hint="Please specify..."
-				        android:textSize="20sp"/>
-			    </LinearLayout>
-			   	<Spinner
+		    <TextView 
+		        android:text="Other"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:textSize="20sp"
+		        android:layout_margin="5dp"
+		        android:layout_weight="1"
+        		android:gravity="center"  />
+		   	<Spinner
 		        android:id="@+id/symptomRank6"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:spinnerMode="dialog"
-		        android:entries="@array/flareq4"/>
+		        android:entries="@array/flareq4"
+		        android:layout_weight="1"/>
 		</LinearLayout>
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_below="@+id/symptom6">
+		    <EditText
+		        android:id="@+id/symptomSpecify6"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:hint="Please specify other symptom..."
+		        android:textSize="20sp"
+	      		android:gravity="center"
+		        android:layout_weight="1"/>
+		   	<View
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		</LinearLayout>
+		
 
 		<Button android:id="@+id/BackButton"
 				android:layout_height="wrap_content"
@@ -167,7 +193,8 @@
 				android:minHeight="75dp">
 <!--				android:minHeight="50px"-->
 <!--				android:maxHeight="50px">-->
-		</Button>		
+		</Button>
+
 
 </RelativeLayout>		    
 

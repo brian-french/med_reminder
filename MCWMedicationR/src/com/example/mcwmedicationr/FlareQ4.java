@@ -46,8 +46,15 @@ public class FlareQ4 extends Activity {
 		symptoms[5] = (Spinner) findViewById(R.id.symptomRank6);
 		other = (EditText) findViewById(R.id.symptomSpecify6);
 		
-		System.out.println(getIntent().getExtras().toString());
+		initBackButton();
 		
+		initNextButton();
+		
+		initRanking();
+		
+	}
+
+	private void initBackButton() {
 		back.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -63,7 +70,9 @@ public class FlareQ4 extends Activity {
 			}
 			
 		});
-		
+	}
+
+	private void initNextButton() {
 		next.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -90,14 +99,15 @@ public class FlareQ4 extends Activity {
 			}
 			
 		});
-		
+	}
+
+	private void initRanking() {
 		if (inputIntent.hasExtra(OTHERKEY)) {
 			for (int j=0; j < symptoms.length; j++) {
 				symptoms[j].setSelection(inputIntent.getIntExtra(RANKKEYS[j], 0));
 			}
 			other.setText(inputIntent.getStringExtra(OTHERKEY));
 		}
-		
 	}
 
 	@Override
