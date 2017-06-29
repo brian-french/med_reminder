@@ -105,7 +105,6 @@ public class MedReminderDialog extends Activity {
 				// launch the interview the alarm has been dismissed
         	   logMedication();
         	   scheduleNextReminder(time);
-        	   launchFlareDialog();
                stop();
 			}
 			
@@ -129,7 +128,6 @@ public class MedReminderDialog extends Activity {
 			public void onClick(View v) {
 				scheduleNextReminder(time);
 				stop();
-				launchFlareDialog();
 				finish();
 			}
 			
@@ -304,23 +302,6 @@ public class MedReminderDialog extends Activity {
 //        if (wl.isHeld())
 //        	wl.release();
         finish();
-    }
-    
-    private void launchFlareDialog() {
-    	int hour2 = prefs.getInt(Constants.PREFS_HOUR_TWO, -1);
-		int minute2 = prefs.getInt(Constants.PREFS_MINUTE_TWO, -1);
-		Time now = new Time();
-		now.setToNow();
-		
-		Time alarm2 = new Time();
-		alarm2.setToNow();
-		alarm2.set(0, minute2, hour2, alarm2.monthDay, alarm2.month, alarm2.year);
-		
-		if (Time.compare(now, alarm2) > 0) {
-			// this is the evening prompt
-			Intent i = new Intent(this, DailyFlareDialog.class);
-			startActivity(i);
-		}
     }
 	
 	 // Do the common stuff when starting the alarm.

@@ -92,7 +92,7 @@ public class DailyFlareDialog extends Activity {
 		
 		sched = new AlarmScheduler(getApplicationContext());
 		
-		snoozeIntent = new Intent(this, DailyFlareDialog.class);//getApplicationContext(), Alarm.class);
+		snoozeIntent = new Intent(this, FlareReceiver.class);//getApplicationContext(), Alarm.class);
 		snoozeIntent.putExtras(intent.getExtras());
 		
 		audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -137,14 +137,14 @@ public class DailyFlareDialog extends Activity {
 		wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "com.ices.cmu.EMA.service.Alarm");
 		wl.acquire();
 		
-//		// release the wake lock in the alarm receiver
-//		if (AlarmReceiver.br_wl != null) {
-//			if (AlarmReceiver.br_wl.isHeld()) {
-//				System.out.println("Releasing alarm receiver wakelock");
-//				AlarmReceiver.br_wl.release();
-//				AlarmReceiver.br_wl = null;
-//			}
-//		}
+		// release the wake lock in the alarm receiver
+		if (FlareReceiver.br_wl != null) {
+			if (FlareReceiver.br_wl.isHeld()) {
+				System.out.println("Releasing alarm receiver wakelock");
+				FlareReceiver.br_wl.release();
+				FlareReceiver.br_wl = null;
+			}
+		}
 		
 		//TODO may want to reintroduce the keypad lock disable here...
 		
@@ -210,7 +210,7 @@ public class DailyFlareDialog extends Activity {
 	private void scheduleNextReminder() {
 		
 		long nextAlarm = prefs.getNextFlareAlarmTime();
-		Intent i = new Intent(getApplicationContext(), DailyFlareDialog.class);
+		Intent i = new Intent(getApplicationContext(), FlareReceiver.class);
 		sched.rescheduleIntent(i, requestCode, nextAlarm);
 	}
  	

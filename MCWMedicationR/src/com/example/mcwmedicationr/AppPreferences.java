@@ -126,8 +126,8 @@ public class AppPreferences {
 	}
 
 	public long getNextFlareAlarmTime() {
-		int hour1 = prefs.getInt(Constants.PREFS_FLARE_HOUR, -1);
-		int minute1 = prefs.getInt(Constants.PREFS_FLARE_MINUTE, -1);
+		int hour1 = prefs.getInt(Constants.PREFS_FLARE_HOUR, 21);
+		int minute1 = prefs.getInt(Constants.PREFS_FLARE_MINUTE, 0);
 		
 		Time now = new Time();
 		now.setToNow();

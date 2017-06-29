@@ -23,7 +23,7 @@ public class BootReceiver extends BroadcastReceiver {
 		long nextAlarm = prefs.getNextAlarmTime(System.currentTimeMillis());
 		sched.rescheduleIntent(i, Constants.ALARM_ALERT_RQ_CODE, nextAlarm);
 		
-		Intent flare = new Intent(context, DailyFlareDialog.class);
+		Intent flare = new Intent(context, FlareReceiver.class);
 		long nextFlare = prefs.getNextFlareAlarmTime();
 		sched.rescheduleIntent(flare, Constants.ALARM_30MIN_RQ_CODE, nextFlare);
 		

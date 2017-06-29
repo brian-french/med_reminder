@@ -67,7 +67,7 @@ public class ChangeFlareTimeActivity extends Activity {
 				prefs.setTimeValue(Constants.PREFS_FLARE_MINUTE, time1.getCurrentMinute());
 				
 				long nextAlarm = prefs.getNextFlareAlarmTime();
-				Intent i = new Intent(getApplicationContext(), DailyFlareDialog.class);
+				Intent i = new Intent(getApplicationContext(), FlareReceiver.class);
 				sched.rescheduleIntent(i, Constants.ALARM_30MIN_RQ_CODE, nextAlarm);
 				
 				if (getIntent().getBooleanExtra("init", false)) {

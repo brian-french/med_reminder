@@ -70,6 +70,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ChangeFlareTimeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".FlareQ1"
             android:label="@string/app_name" >
             <intent-filter>
@@ -112,6 +120,7 @@
         </activity>
         
         <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".FlareReceiver" />
         <receiver android:name=".BootReceiver" />
         
     </application>
