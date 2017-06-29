@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -13,6 +16,8 @@ public class FlareQ1 extends Activity {
 
 	Button back, next;
 	ListView responses;
+	ArrayAdapter responseAdapter;
+	boolean clickByMe = false;
 	
 	Intent inputIntent;
 	
@@ -30,9 +35,21 @@ public class FlareQ1 extends Activity {
 		next = (Button) findViewById(R.id.NextButton);
 		responses = (ListView) findViewById(R.id.List);
 		
+		initBackButton();
+		
+		initNextButton();
+		
+		initListView();
+	}
+
+	private void initBackButton() {
 		back.setEnabled(false);
 		back.setVisibility(View.INVISIBLE);
-		
+	}
+
+	private void initNextButton() {
+		next.setEnabled(false);
+		next.setVisibility(View.INVISIBLE);
 		next.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -41,16 +58,50 @@ public class FlareQ1 extends Activity {
 				if (inputIntent.getExtras() != null) {
 					i.putExtras(inputIntent.getExtras());
 				}
-				i.putExtra(DATAKEY, responses.getSelectedItemPosition());
+				i.putExtra(DATAKEY, responses.getCheckedItemPosition());
+				System.out.println(i.getIntExtra(DATAKEY, -1));
 				startActivity(i);
 				finish();
 			}
 			
 		});
+	}
+	
+	private void initListView() {
+		String[] list = getResources().getStringArray(R.array.flareq1);
+		//ArrayList<String> list = new ArrayList<String>();
+		
+		responseAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_multiple_choice, list); //android.R.layout.simple_list_item_checked, list);
+
+		responses.setAdapter(responseAdapter);
+		responses.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+				if (clickByMe) {
+					clickByMe = false;
+				} else {
+					
+					next.setVisibility(View.VISIBLE);
+					next.setEnabled(true);
+					
+				}
+			}
+			
+		});
+		
+		// restore response if needed
 		int position = inputIntent.getIntExtra(DATAKEY, -1);
 		if (position != -1) {
-			responses.setSelection(position);
+			clickPosition(position);
+			next.setVisibility(View.VISIBLE);
+			next.setEnabled(true);
 		}
+	}
+	
+	private void clickPosition(int position) {
+		clickByMe = true;
+		View last = responses.getChildAt(position);
+		responses.performItemClick(last, position, position);
 	}
 
 	@Override
